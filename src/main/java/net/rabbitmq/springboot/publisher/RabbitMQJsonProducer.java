@@ -25,5 +25,6 @@ public class RabbitMQJsonProducer {
     public void sendJsonMessage(User user) {
         log.info("Json 메시지 보냄: {}", user);
         rabbitTemplate.convertAndSend(exchange, routingJsonKey, user);
+
     }
 }

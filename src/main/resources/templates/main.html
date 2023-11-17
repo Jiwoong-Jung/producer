@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form id="form">
+    id: <input type="text" name="id" id="id"/><br>
+    firstName: <input type="text" name="firstName" id="firstName"/><br>
+    lastName: <input type="text" name="lastName" id="lastName"/><br>
+    <input type="submit" value="submit" />
+    </form>
+<script>
+    const form = document.getElementById('form');
+
+
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+
+        // const data = new FormData(form);
+        // console.log(data);
+        // for (let value of data.values()) {
+        //     console.log(value);
+        // }
+
+        const id = document.getElementById('id').value;
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+
+        fetch('http://localhost:8081/api/v1/publish', {
+            method: 'post',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: id,
+                firstName: firstName,
+                lastName: lastName,
+            }),
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    alert("저장 완료");
+                } else if (res.status === 403) {
+                    return res.json();
+                }
+            })
+            // .then(res => {
+            //     console.log("에러 메시지 ->", res);
+            // })
+    });
+
+</script>
+</body>
+</html>
